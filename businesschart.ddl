@@ -1,0 +1,14 @@
+CREATE TABLE Market (ID int(5) NOT NULL AUTO_INCREMENT, OrderID int(5) NOT NULL, CustomerID int(5) NOT NULL, DeliveryID int(5) NOT NULL, ProductID int(5) NOT NULL, `Product Name` varchar(50), `Amount Sold` int(10), Profit int(10), Discount decimal(2, 2), `Order Quantity` int(5), PRIMARY KEY (ID));
+CREATE TABLE `Order` (ID int(5) NOT NULL AUTO_INCREMENT, `Order Date` date, `Order Time` time(6), PRIMARY KEY (ID));
+CREATE TABLE Customer (ID int(5) NOT NULL AUTO_INCREMENT, `Customer Name` varchar(50), Location int(10), `Business Type` varchar(50), PRIMARY KEY (ID));
+CREATE TABLE Product (ID int(5) NOT NULL AUTO_INCREMENT, `Product Category` varchar(50), `Sub Product Category` varchar(50), PRIMARY KEY (ID));
+CREATE TABLE `Order` (ID int(5) NOT NULL AUTO_INCREMENT, `Order Date` date, `Order Time` time(7), PRIMARY KEY (ID));
+CREATE TABLE Delivery (ID int(5) NOT NULL AUTO_INCREMENT, OrderID int(5) NOT NULL, `Delivery Cost` int(10), `Delivery Mode` varchar(50), `Delivery Date` date, PRIMARY KEY (ID));
+CREATE TABLE `Cust. Review` (ID int(5) NOT NULL AUTO_INCREMENT, CustomerID int(5) NOT NULL, `Order ID` int(5), Ratings varchar(20), PRIMARY KEY (ID));
+CREATE VIEW Feedback AS SELECT Customer.`Customer Name`, `Cust. Review`.`Order ID`, `Cust. Review`.Ratings FROM Customer CROSS JOIN `Cust. Review`;
+ALTER TABLE Market ADD CONSTRAINT FKMarket441481 FOREIGN KEY (OrderID) REFERENCES `Order` (ID);
+ALTER TABLE Market ADD CONSTRAINT FKMarket337924 FOREIGN KEY (CustomerID) REFERENCES Customer (ID);
+ALTER TABLE Market ADD CONSTRAINT FKMarket880229 FOREIGN KEY (ProductID) REFERENCES Product (ID);
+ALTER TABLE Delivery ADD CONSTRAINT FKDelivery111412 FOREIGN KEY (OrderID) REFERENCES `Order` (ID);
+ALTER TABLE Market ADD CONSTRAINT FKMarket944419 FOREIGN KEY (DeliveryID) REFERENCES Delivery (ID);
+ALTER TABLE `Cust. Review` ADD CONSTRAINT `FKCust. Revi990519` FOREIGN KEY (CustomerID) REFERENCES Customer (ID);
